@@ -33,7 +33,7 @@ The following **additional** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://github.com/jordanNeo/twitterpt1gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://github.com/jordanNeo/twitterpt1gif/blob/main/twitter1.gif?raw=true' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 
 
