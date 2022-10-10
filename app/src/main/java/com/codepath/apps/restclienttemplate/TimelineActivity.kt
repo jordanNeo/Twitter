@@ -17,6 +17,7 @@ class TimelineActivity : AppCompatActivity() {
     lateinit var adapter: TweetsAdapter
     lateinit var swipeContainer: SwipeRefreshLayout
 
+    val tweets = ArrayList<Tweet>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +26,7 @@ class TimelineActivity : AppCompatActivity() {
 
         client = TwitterApplication.getRestClient(this)
         rvTweets = findViewById<RecyclerView>(R.id.rvTweets)
-        adapter = TweetsAdapter(tweets)
+        adapter = TweetsAdapter(this,tweets)
 
         swipeContainer = findViewById(R.id.swipeContainer)
 
