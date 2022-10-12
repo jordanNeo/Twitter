@@ -1,12 +1,14 @@
 package com.codepath.apps.restclienttemplate.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import org.json.JSONObject
-
+@Parcelize
 data class User(
-    val name: String,
-    val screeName:String,
-    val publicImageUrl: String
-){
+    var name: String = "",
+    var screeName:String = "",
+    var publicImageUrl: String = ""
+): Parcelable{
     companion object{
         fun fromJson(jsonObject: JSONObject):User{
             val user = User(

@@ -33,6 +33,7 @@ class TweetsAdapter(val context: Context,val tweets: ArrayList<Tweet>) : Recycle
 
         holder.tvUserName.text = tweet.user?.name
         holder.tvTweetBody.text = tweet.body
+        holder.tvCreated.text = tweet.createdAt
 
         Glide.with(holder.itemView).load(tweet.user?.publicImageUrl).transform(
             CenterInside(), RoundedCorners(16)
@@ -54,6 +55,7 @@ class TweetsAdapter(val context: Context,val tweets: ArrayList<Tweet>) : Recycle
 
 
     inner class ViewHolder(context: Context,itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+        val tvCreated= itemView.findViewById<TextView>(R.id.tvCreated)
         val ivProfileImage = itemView.findViewById<ImageView>(R.id.ivProfileImage)
         val tvUserName = itemView.findViewById<TextView>(R.id.tvUsername)
         val tvTweetBody = itemView.findViewById<TextView>(R.id.tvTweetBody)
@@ -65,7 +67,6 @@ class TweetsAdapter(val context: Context,val tweets: ArrayList<Tweet>) : Recycle
         override fun onClick(p0: View?) {
             val tweet = tweets[adapterPosition]
             Toast.makeText(context, tweet.user?.name, Toast.LENGTH_SHORT)
-            Log.i(TAG, tweet.user?.name)
 
             val intent = Intent(context, DetailActivity::class.java)
             intent.putExtra(CLICKED, tweet)

@@ -1,13 +1,20 @@
 package com.codepath.apps.restclienttemplate
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.widget.Button
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.codepath.apps.restclienttemplate.models.Tweet
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import okhttp3.Headers
 import org.json.JSONException
 
@@ -39,14 +46,50 @@ class TimelineActivity : AppCompatActivity() {
             android.R.color.holo_green_light,
             android.R.color.holo_orange_light,
             android.R.color.holo_red_light
-        );
+        )
 
         rvTweets.layoutManager = LinearLayoutManager(this)
         rvTweets.adapter = adapter
 
         populateHomeTimeline()
 
+        val fab : FloatingActionButton = findViewById(R.id.goToTweet)
+        fab.setOnClickListener {
+            val intent = Intent(this, ComposeActivity::class.java)
+            startActivityForResult(intent, REQUEST_CODE)
+        }
+        fab.setImageResource(R.drawable.tweets)
+
     }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.compose){
+            val intent = Intent(this, ComposeActivity::class.java)
+            startActivityForResult(intent, REQUEST_CODE)
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?){
+       if (resultCode == RESULT_OK && REQUEST_CODE == REQUEST_CODE){
+
+           val tweet: Tweet? = data?.getParcelableExtra("tweet")
+
+           if (tweet != null) {
+               tweets.add(0, tweet)
+           }
+           adapter.notifyItemInserted(0)
+           rvTweets.smoothScrollToPosition(0)
+
+       }
+        super.onActivityResult(requestCode, resultCode, data)
+    }
+
 
     fun populateHomeTimeline() {
         client.getHomeTimeline(object : JsonHttpResponseHandler() {
@@ -83,5 +126,6 @@ class TimelineActivity : AppCompatActivity() {
 
     companion object {
         val TAG = "TimelineActivity"
+        val REQUEST_CODE = 15
     }
 }

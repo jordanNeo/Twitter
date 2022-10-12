@@ -15,5 +15,6 @@ class DetailActivity : AppCompatActivity() {
 
         val tweet = intent.getParcelableExtra<Tweet>(CLICKED) as Tweet
         Log.i(TAG, "$tweet")
+
     }
 }

@@ -7,13 +7,9 @@ import org.json.JSONArray
 import org.json.JSONObject
 
 @Parcelize
-class Tweet : Parcelable {
-    @IgnoredOnParcel
-    var body: String = ""
-    @IgnoredOnParcel
-    var createdAt: String = ""
-    @IgnoredOnParcel
-    var user: User? = null
+class Tweet(var body: String = "",
+            var createdAt: String = "",
+            var user: User? = null) : Parcelable {
 
 
     companion object {
